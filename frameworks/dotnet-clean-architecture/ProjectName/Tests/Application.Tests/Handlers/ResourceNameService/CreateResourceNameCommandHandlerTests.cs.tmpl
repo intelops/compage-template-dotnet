@@ -1,0 +1,52 @@
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Application.Commands.{{.CapsResourceNameSingular}};
+using Application.Handlers.{{.CapsResourceNameSingular}};
+using Core.Entities;
+using Core.Repositories;
+
+namespace Application.Tests.Handlers.{{.CapsResourceNameSingular}}
+{
+    public class Create{{.CapsResourceNameSingular}}CommandHandlerTests
+    {
+        private readonly Mock<I{{.CapsResourceNameSingular}}Repository> _{{.SmallResourceNameSingular}}Repository;
+        private readonly Mock<IMapper> _mapper;
+        private readonly Mock<ILogger<Create{{.CapsResourceNameSingular}}CommandHandler>> _logger;
+
+        public Create{{.CapsResourceNameSingular}}CommandHandlerTests()
+        {
+            _{{.SmallResourceNameSingular}}Repository = new();
+            _mapper = new();
+            _logger = new();
+        }
+
+
+
+        [Fact]
+        public async Task Handle_ReturnsId()
+        {
+            // Arrange
+            var request = new Create{{.CapsResourceNameSingular}}Command(); // Create a request object as needed
+
+
+            _mapper
+                .Setup(m => m.Map<{{.CapsResourceNameSingular}}>(request))
+                .Returns(new {{.CapsResourceNameSingular}}()); 
+
+
+            _{{.SmallResourceNameSingular}}Repository
+                .Setup(r => r.AddAsync(It.IsAny<{{.CapsResourceNameSingular}}>()))
+                .ReturnsAsync(new {{.CapsResourceNameSingular}} { Id = 123 }); 
+
+            var loggerMock = new Mock<ILogger<Create{{.CapsResourceNameSingular}}CommandHandler>>();
+            var handler = new Create{{.CapsResourceNameSingular}}CommandHandler(_{{.SmallResourceNameSingular}}Repository.Object, _mapper.Object, loggerMock.Object);
+
+            // Act
+            var result = await handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.Equal(123, result); 
+        }
+    }
+}
