@@ -1,0 +1,15 @@
+﻿using MediatR;
+
+namespace Application.Commands.{{.CapsResourceNameSingular}}Service
+{
+    public class Update{{.CapsResourceNameSingular}}Command : IRequest
+    {
+        public int Id  { get; set; }
+        {{range $k, $v := .Fields}}
+            {{if eq $k "Id"}}
+            {{else}}
+            public {{$v}} {{$k}} { get; set; }
+            {{end}}
+        {{end}}
+    }
+}
