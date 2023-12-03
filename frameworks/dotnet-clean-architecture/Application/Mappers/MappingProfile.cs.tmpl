@@ -1,0 +1,17 @@
+﻿using AutoMapper;
+using Application.Commands.{{.CapsResourceNameSingular}}Service;
+using Application.Responses;
+using Core.Entities;
+
+namespace Application.Mappers
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {            
+            CreateMap<{{.CapsResourceNameSingular}}, {{.CapsResourceNameSingular}}Response>().ReverseMap();
+            CreateMap<{{.CapsResourceNameSingular}}, Create{{.CapsResourceNameSingular}}Command>().ReverseMap();
+            CreateMap<{{.CapsResourceNameSingular}}, Update{{.CapsResourceNameSingular}}Command>().ReverseMap();
+        }
+    }
+}

@@ -1,0 +1,9 @@
+﻿using MediatR;
+
+namespace Application.Commands.{{.CapsResourceNameSingular}}Service
+{
+    public class Delete{{.CapsResourceNameSingular}}Command : IRequest
+    {
+        public int Id { get; set; }
+    }
+}
