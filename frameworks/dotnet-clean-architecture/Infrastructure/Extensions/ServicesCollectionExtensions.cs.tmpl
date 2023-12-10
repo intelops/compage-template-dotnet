@@ -16,7 +16,9 @@ namespace Infrastructure.Extensions
             serviceCollection.AddDbContext<DatabaseContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("ConnectionString")));
             serviceCollection.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
-            serviceCollection.AddScoped<I{{.CapsResourceNameSingular}}Repository, {{.CapsResourceNameSingular}}Repository>();
+        {{range $i, $v := .RestResources}}
+            serviceCollection.AddScoped<I{{$v.CapsResourceNameSingular}}Repository, {{$v.CapsResourceNameSingular}}Repository>();
+        {{end}}
             return serviceCollection;
         }
     }
