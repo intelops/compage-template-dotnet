@@ -10,8 +10,9 @@ namespace Infrastructure.Data
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
-        public DbSet<{{.CapsResourceNameSingular}}> {{.CapsResourceNameSingular}} { get; set; }
-
+    {{range $i, $v := .RestResources}}
+        public DbSet<{{$v.CapsResourceNameSingular}}> {{$v.CapsResourceNameSingular}} { get; set; }
+    {{end}}
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {           
             return base.SaveChangesAsync(cancellationToken);
