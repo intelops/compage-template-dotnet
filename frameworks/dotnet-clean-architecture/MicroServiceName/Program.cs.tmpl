@@ -18,7 +18,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 /********************************************************************************************************/
 
 //OpenTelemetry
-const string serviceName = "{{.NodeName}}";
+const string serviceName = "{{.MicroServiceName}}";
 builder.Services.AddCustomOpenTelemetry(serviceName);
 builder.Logging.AddCustomOpenTelemetryLogging(serviceName);
 //Honeycomb

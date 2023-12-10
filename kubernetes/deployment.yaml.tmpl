@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{.NodeName}}
-  name: {{.NodeName}}
+  namespace: {{.MicroServiceName}}
+  name: {{.MicroServiceName}}
   labels:
-    app: {{.NodeName}}
+    app: {{.MicroServiceName}}
 spec:
   selector:
     matchLabels:
-      app: {{.NodeName}}
+      app: {{.MicroServiceName}}
   template:
     metadata:
       labels:
-        app: {{.NodeName}}
-        name: {{.NodeName}}
+        app: {{.MicroServiceName}}
+        name: {{.MicroServiceName}}
     spec:
       containers:
-        - name: {{.NodeName}}
-          image: {{.GitPlatformUserName}}/{{.GitRepositoryName}}/{{.NodeName}}
+        - name: {{.MicroServiceName}}
+          image: {{.GitPlatformUserName}}/{{.GitRepositoryName}}/{{.MicroServiceName}}
           imagePullPolicy: Always
           ports:
         {{if .IsRestServer }}
