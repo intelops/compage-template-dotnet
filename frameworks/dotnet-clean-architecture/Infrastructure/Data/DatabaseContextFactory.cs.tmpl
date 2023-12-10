@@ -7,8 +7,8 @@ namespace Infrastructure.Data
     {
         public DatabaseContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContextt>();
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog = DbName;User Id=*****;Password=*****;TrustServerCertificate=True;");
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog = {{.NodeName }};User Id=*****;Password=*****;TrustServerCertificate=True;");
             return new DatabaseContext(optionsBuilder.Options);
         }
     }

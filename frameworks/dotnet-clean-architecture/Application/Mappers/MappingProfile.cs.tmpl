@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using Application.Commands.{{.CapsResourceNameSingular}}Service;
+{{range $i, $v := .RestResources}}
+using Application.Commands.{{$v.CapsResourceNameSingular}}Service;
+{{end}}
 using Application.Responses;
 using Core.Entities;
 
@@ -8,10 +10,12 @@ namespace Application.Mappers
     public class MappingProfile : Profile
     {
         public MappingProfile()
-        {            
-            CreateMap<{{.CapsResourceNameSingular}}, {{.CapsResourceNameSingular}}Response>().ReverseMap();
-            CreateMap<{{.CapsResourceNameSingular}}, Create{{.CapsResourceNameSingular}}Command>().ReverseMap();
-            CreateMap<{{.CapsResourceNameSingular}}, Update{{.CapsResourceNameSingular}}Command>().ReverseMap();
+        {
+          {{range $i, $v := .RestResources}}
+            CreateMap<{{$v.CapsResourceNameSingular}}, {{$v.CapsResourceNameSingular}}Response>().ReverseMap();
+            CreateMap<{{$v.CapsResourceNameSingular}}, Create{{$v.CapsResourceNameSingular}}Command>().ReverseMap();
+            CreateMap<{{$v.CapsResourceNameSingular}}, Update{{$v.CapsResourceNameSingular}}Command>().ReverseMap();
+          {{end}}
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Core.Entities
     public class {{.CapsResourceNameSingular}} : EntityBase
     {
         public int Id  { get; protected set; }
-        {{range $k, $v := .Fields}}
-            {{if eq $k "Id"}}
-            {{else}}
-            public {{$v}} {{$k}} { get; set; }
-            {{end}}
+    {{range $k, $v := .Fields}}
+        {{if eq $k "Id"}}
+        {{else}}
+        public {{$v}} {{$k}} { get; set; }
         {{end}}
+    {{end}}
     }
 }
