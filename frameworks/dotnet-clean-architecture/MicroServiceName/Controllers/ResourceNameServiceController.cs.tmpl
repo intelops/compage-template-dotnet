@@ -20,6 +20,16 @@ namespace Controllers
             _logger = logger;
         }
 
+        {{ if .IsRESTCreateAllowed }}
+        [HttpPost(Name = "Create{{.CapsResourceNameSingular}}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<int>> Create{{.CapsResourceNameSingular}}([FromBody] Create{{.CapsResourceNameSingular}}Command command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        {{ end }}
+
         {{ if .IsRESTListAllowed }}
         [HttpGet(Name = "GetAll{{.CapsResourceNameSingular}}")]
         [ProducesResponseType(typeof(IEnumerable<List<{{.CapsResourceNameSingular}}Response>>), (int)HttpStatusCode.OK)]
@@ -30,24 +40,15 @@ namespace Controllers
         }
         {{ end }}
 
-        {{ if .IsRESTGetAllowed }} 
+        {{ if .IsRESTGetAllowed }}
         [HttpGet("{id}", Name = "Get{{.CapsResourceNameSingular}}ById")]
         [ProducesResponseType(typeof({{.CapsResourceNameSingular}}Response), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<{{.CapsResourceNameSingular}}Response>> Get{{.CapsResourceNameSingular}}ById(int id, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("{{.CapsResourceNameSingular}} GET request received for ID {id}", id);
             var response = await _mediator.Send(new Get{{.CapsResourceNameSingular}}ByIdQuery(id), cancellationToken);
             return Ok(response);
-        }
-        {{ end }}
-
-        {{ if .IsRESTCreateAllowed }}
-        [HttpPost(Name = "Create{{.CapsResourceNameSingular}}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> Create{{.CapsResourceNameSingular}}([FromBody] Create{{.CapsResourceNameSingular}}Command command)
-        {
-            var result = await _mediator.Send(command);
-            return Ok(result);
         }
         {{ end }}
 
@@ -70,6 +71,7 @@ namespace Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete{{.CapsResourceNameSingular}}(int id)
         {
+            _logger.LogInformation("{{.CapsResourceNameSingular}} DELETE request received for ID {id}", id);
             var cmd = new Delete{{.CapsResourceNameSingular}}Command() { Id = id };
             await _mediator.Send(cmd);
             return NoContent();
