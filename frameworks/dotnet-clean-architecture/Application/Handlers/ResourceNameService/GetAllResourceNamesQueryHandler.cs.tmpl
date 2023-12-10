@@ -6,16 +6,16 @@ using Core.Repositories;
 
 namespace Application.Handlers.{{.CapsResourceNameSingular}}Service
 {
-    public class GetAll{{.CapsResourceNameSingular}}QueryHandler : IRequestHandler<GetAll{{.CapsResourceNameSingular}}Query, List<{{.CapsResourceNameSingular}}Response>>
+    public class GetAll{{.CapsResourceNamePlural}}QueryHandler : IRequestHandler<GetAll{{.CapsResourceNamePlural}}Query, List<{{.CapsResourceNameSingular}}Response>>
     {
         private readonly I{{.CapsResourceNameSingular}}Repository _{{.SmallResourceNameSingular}}Repository;
         private readonly IMapper _mapper;
-        public GetAll{{.CapsResourceNameSingular}}QueryHandler(I{{.CapsResourceNameSingular}}Repository {{.SmallResourceNameSingular}}Repository, IMapper mapper)
+        public GetAll{{.CapsResourceNamePlural}}QueryHandler(I{{.CapsResourceNameSingular}}Repository {{.SmallResourceNameSingular}}Repository, IMapper mapper)
         {
             _{{.SmallResourceNameSingular}}Repository = {{.SmallResourceNameSingular}}Repository;
             _mapper = mapper;
         }
-        public async Task<List<{{.CapsResourceNameSingular}}Response>> Handle(GetAll{{.CapsResourceNameSingular}}Query request, CancellationToken cancellationToken)
+        public async Task<List<{{.CapsResourceNameSingular}}Response>> Handle(GetAll{{.CapsResourceNamePlural}}Query request, CancellationToken cancellationToken)
         {
             var generated{{.CapsResourceNameSingular}} = await _{{.SmallResourceNameSingular}}Repository.GetAllAsync();
             var {{.SmallResourceNameSingular}}Entity = _mapper.Map<List<{{.CapsResourceNameSingular}}Response>>(generated{{.CapsResourceNameSingular}});
