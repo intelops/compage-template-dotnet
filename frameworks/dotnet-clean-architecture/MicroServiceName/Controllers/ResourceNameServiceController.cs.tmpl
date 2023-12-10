@@ -31,11 +31,11 @@ namespace Controllers
         {{ end }}
 
         {{ if .IsRESTListAllowed }}
-        [HttpGet(Name = "GetAll{{.CapsResourceNameSingular}}")]
+        [HttpGet(Name = "GetAll{{.CapsResourceNamePlural}}")]
         [ProducesResponseType(typeof(IEnumerable<List<{{.CapsResourceNameSingular}}Response>>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<List<{{.CapsResourceNameSingular}}Response>>> GetAll{{.CapsResourceNameSingular}}(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<{{.CapsResourceNameSingular}}Response>>> GetAll{{.CapsResourceNamePlural}}(CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetAll{{.CapsResourceNameSingular}}Query(), cancellationToken);
+            var response = await _mediator.Send(new GetAll{{.CapsResourceNamePlural}}Query(), cancellationToken);
             return Ok(response);
         }
         {{ end }}

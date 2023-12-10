@@ -8,7 +8,7 @@ using Core.Repositories;
 
 namespace Application.Tests.Handlers.{{.CapsResourceNameSingular}}Service
 {
-    public class GetAll{{.CapsResourceNameSingular}}QueryHandlerTests
+    public class GetAll{{.CapsResourceNamePlural}}QueryHandlerTests
     {
         [Fact]
         public async Task Handle_ReturnsListOf{{.CapsResourceNameSingular}}Responses()
@@ -31,8 +31,8 @@ namespace Application.Tests.Handlers.{{.CapsResourceNameSingular}}Service
             var RepositoryMock = new Mock<I{{.CapsResourceNameSingular}}Repository>();
             RepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(obj);
 
-            var query = new GetAll{{.CapsResourceNameSingular}}Query();
-            var handler = new GetAll{{.CapsResourceNameSingular}}QueryHandler(RepositoryMock.Object, mapper);
+            var query = new GetAll{{.CapsResourceNamePlural}}Query();
+            var handler = new GetAll{{.CapsResourceNamePlural}}QueryHandler(RepositoryMock.Object, mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
